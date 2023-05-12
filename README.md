@@ -25,3 +25,13 @@
 -   Alcohol_Consump: Frequency of alcohols consumption.
 -   Transport: Which transports does the person usually use?
 -   Body_Level: Class of human body level.
+
+## File Structure
+- *Dataset* folder contains the dataset in csv format.
+- *Model_No_CV* folder contains the model without cross validation.
+  - `model_selection.ipynb` contains the code for model selection.
+- *Model_With_CV* folder contains the model with cross validation.
+  - `model_selection.ipynb` contains the code for model selection.
+- *Preprocess* folder contains the preprocessing code.
+  - `preprocess.py` contains the code for preprocessing, used in Cross Validation.
+  - `preprocess2.py` contains the code for preprocessing, used in without Cross Validation.

@@ -11,7 +11,7 @@ class Preprocessor:
     """
     def __init__(self):
         # load from body_level_classification_train.csv
-        self.df = pd.read_csv('body_level_classification_train.csv')
+        self.df = pd.read_csv('../Dataset/body_level_classification_train.csv')
 
     def head(self):
         return self.df.head()
