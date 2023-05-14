@@ -5,14 +5,26 @@ from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import SMOTE
 from sklearn.preprocessing import StandardScaler, MaxAbsScaler
 
-def ReadData(pth='../Dataset/body_level_classification_train.csv', label='Body_Level'):
+def ReadData(pth='./Dataset/body_level_classification_train.csv', label='Body_Level'):
     df = pd.read_csv(pth)
     # make label column as the last column
-    df_h = df[label]
+    df_h = df[label].values
     df.drop(label, axis=1, inplace=True)
-    df[label] = df_h[label]
+    df[label] = df_h
     #
     return df
+
+# aggregate columns, BMI index, ...
+def Aggregate(df, discretize=False):
+    weight = df['Weight'].values
+    height = df['Height'].values    
+    # BMI
+    df['BMI'] = weight / (height * height)
+    if discretize:
+        df['BMI'] = df['BMI'].apply(lambda x: 0 if x < 18.5 else (1 if x < 25 else (2 if x < 30 else 3)))
+    # keep Body_Level as the last column
+    df = df[[col for col in df.columns if col != 'Body_Level'] + ['Body_Level']]
+    return df 
 
 # encode while preserving ordinal feature of data!
 def LabelOrdinalEncode(df):
@@ -48,17 +60,6 @@ def OneHotEncode(df, label='Body_Level'):
     #
     return df_h
     
-def Scale(df_p, type='StandardScaler'):
-    if type == 'StandardScaler':
-        scaler = StandardScaler()
-    elif type == 'MaxAbsScaler':
-        scaler = MaxAbsScaler()
-    else:
-        raise ValueError('type must be StandardScaler or MaxAbsScaler')
-    #
-    # df_p.iloc[:, :-1] = scaler.fit_transform(df_p.iloc[:, :-1])
-    return scaler.fit_transform(df_p)
-
 from sklearn.utils import resample
 def Resample(df_p):
     df_p1 = df_p[df_p['Body_Level'] == 0]
@@ -81,11 +82,11 @@ def SMOTE(X:np.ndarray, y:np.ndarray):
     X_smote, y_smote = smote.fit_resample(X, y)
     return X_smote, y_smote
     
-def Split(df_h, test_size=0.2):
+def Split(df_h, test_size=0.2, random_state=42):
     """
     Split the dataset into train and test
     """
     X = df_h.iloc[:, :-1]
     y = df_h.iloc[:, -1]
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=0)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
     return X_train, X_test, y_train, y_test
