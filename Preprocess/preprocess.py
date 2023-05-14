@@ -30,17 +30,17 @@ def preprocess(df, resample_=True):
     df_p = df.copy()
     # categorical
     df_p['Body_Level'] = df_p['Body_Level'].map({
-    'Body Level 1': 1, 
-    'Body Level 2': 2, 
-    'Body Level 3': 3, 
-    'Body Level 4': 4})
+    'Body Level 1': 0, 
+    'Body Level 2': 1, 
+    'Body Level 3': 2, 
+    'Body Level 4': 3})
 
     # resample
     if resample_:
-        df_p1 = df_p[df_p['Body_Level'] == 1]
-        df_p2 = df_p[df_p['Body_Level'] == 2]
-        df_p3 = df_p[df_p['Body_Level'] == 3]
-        df_p4 = df_p[df_p['Body_Level'] == 4]
+        df_p1 = df_p[df_p['Body_Level'] == 0]
+        df_p2 = df_p[df_p['Body_Level'] == 1]
+        df_p3 = df_p[df_p['Body_Level'] == 2]
+        df_p4 = df_p[df_p['Body_Level'] == 3]
 
         max_class_size = max(len(df_p1), len(df_p2), len(df_p3), len(df_p4))
 
