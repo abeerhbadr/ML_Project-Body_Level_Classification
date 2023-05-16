@@ -4,6 +4,9 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import SMOTE
 from sklearn.preprocessing import StandardScaler, MaxAbsScaler
+# joblib for saving model
+import joblib
+
 
 def ReadData(pth='./Dataset/body_level_classification_train.csv', label='Body_Level'):
     df = pd.read_csv(pth)
@@ -90,3 +93,6 @@ def Split(df_h, test_size=0.2, random_state=42):
     y = df_h.iloc[:, -1]
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
     return X_train, X_test, y_train, y_test
+
+def Save_Model(model, path='./model.pkl'):
+    joblib.dump(model, path)
