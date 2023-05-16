@@ -17,3 +17,4 @@ seaborn==0.12.2
 sklearn==0.0.post1
 xdg==5
 xgboost==1.7.5
+joblib
