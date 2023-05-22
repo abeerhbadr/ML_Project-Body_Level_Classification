@@ -35,46 +35,41 @@ Bike / Walking / Public\_Transport / MotorBike / Automobile =\> 0 / 1 / 2 / 3 / 
 
 We concatenated an augmented metric called BMI, it is stated by domain experts "doctors" that it is an effective way to measure the healthy state of an individual.
 
-###
-
-
 ### 1. Correlation Matrix
 
-### ![]![correlation Matrix](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/e32fe1fc-c02c-487f-a4d8-218448771482)
+### ![correlation Matrix](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/7764bb1c-f93f-428c-8443-e2c894ec5973)
 
 **Notable few:**
-('BMI', 'Weight')
-0.93
-('Body\_Level', 'BMI')
-0.90
-('Body\_Level', 'Weight')
-0.84
-('Transport', 'Age')
-0.58
-('Body\_Level', 'Fam\_Hist')
-0.50
-('Fam\_Hist', 'Weight')
-0.49
-('Body\_Level', 'Age')
-0.33
+| **Col** | Value |
+| --- | --- |
+| ('BMI', 'Weight') | 0.93 |
+| ('Body\_Level', 'BMI') | 0.90 |
+| ('Body\_Level', 'Weight') | 0.84 |
+| ('Transport', 'Age') | 0.58 |
+| ('Body\_Level', 'Fam\_Hist') | 0.50 | 
+| ('Fam\_Hist', 'Weight') | 0.49 |
+| ('Body\_Level', 'Age') | 0.33 |
+
 ### **2. Columns Values Histogram**
 
-### ![](RackMultipart20230522-1-ejmitp_html_f4996274f9e67605.png)
+### ![hist](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/ecfe723b-ce63-46cf-baa2-23f123b271f3)
 
 ### **3. Class Frequency (Prior)**
-
-- Body Level 4 680
-- Body Level 3 406
-- Body Level 2 201
-- Body Level 1 190
+| Body Level | Frequency |
+| Body Level 4 | 680 |
+| Body Level 3 | 406 |
+| Body Level 2  | 201 |
+| Body Level 1 | 190 |
 
 We can see that imbalance exists but not very extreme, we will tackle solutions in preprocessing.
 
 ### **4. Features distributions among classes** (x-axis bounds are fixed)
 
-### ![](RackMultipart20230522-1-ejmitp_html_ac87e8155af84745.png)
+### ![classes](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/3f006652-e0a6-43f4-b43e-4e9002375f16)
 
-![](RackMultipart20230522-1-ejmitp_html_ac87e8155af84745.png)
+![classes2](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/3fb85389-e4e0-4262-93ee-cbfcd7b961a9)
+
+
 
 We can observe that most correlation with Body\_Level falls into three categories:
 
@@ -95,8 +90,6 @@ Like Time\_E\_Dev and Phy\_act it decreases with higher class
 Like Veg Consumption or Smoking
 
 ## II. Data Preprocessing
-
-1.
 ### Data Encoding
 
 - Categorical columns have the following values:
@@ -134,8 +127,7 @@ We also tried One-Hot encoding of categorical features, which makes all values i
 2. SMOTE, which looks for the nearest k neighbours for a sample, chooses one neighbour at random, then adds a value between the two samples' vectors
 
 - We found that not resampling yields higher accuracies.
-
-1.
+- 
 ### Aggregates
 
 From [Correlation Matrix](#_xpi09cb1zjhj), we find high correlation between Body\_Level and weight, while we find quite a low correlation between Body\_Level and Height. So we add aggregate columns that have meaning combining two features or more. The aggregate column we added is the Body Mass Index (BMI).
@@ -150,7 +142,6 @@ This addition of BMI column added a significant improvement to the accuracy.
 
 ## III. Model/Classifier training
 
--
 ### SVM
 
 - Support vector machine
@@ -160,74 +151,74 @@ This addition of BMI column added a significant improvement to the accuracy.
 - For non-linearly separable data, SVM uses the kernel trick to transform the data into higher dimensionals where it becomes linearly separable
 - HyperParameter Tuning Results: {'C': 12, 'gamma': 0.01, 'kernel': 'rbf'}
 
-![](RackMultipart20230522-1-ejmitp_html_da2a32c8607e112f.png)
+![0_9jEWNXTAao7phK-5](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/957a7978-74ad-4d92-8825-efc402743de0)
 
-![](RackMultipart20230522-1-ejmitp_html_1d3519240cac572a.png)
+![0_0o8xIA4k3gXUDCFU](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/04d62c28-b6a0-4dae-a687-d839aeded5f2)
 
 - SVM Learning Curve: used to determine the training set size
+![curve training](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/19c5737d-65df-4305-9150-e1d126e16f1e)
 
 - SVM Validation Curve of the "gamma" parameter:
 
-![](RackMultipart20230522-1-ejmitp_html_4c40d88bf3237ebe.png)
+![svm validation](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/b0d36612-bdd1-46b2-a1c7-d98b0c845c81)
+
 
 - SVM Validation Curve of the "C" parameter:
 
-![](RackMultipart20230522-1-ejmitp_html_d681010f10a5498f.png)
+![validation2](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/60ae3568-992a-4e6c-9ff5-be71e0fe3745)
 
-- **Logistic Regression**
-  - ِِAssumes that the relationship between the input variables and the output variable is linear
+
+### **Logistic Regression**
+  - Assumes that the relationship between the input variables and the output variable is linear
   - Assumes that the input variables are independent of each other
   - uses a logistic function, also known as a sigmoid function
   - sigmoid(z) = 1 / (1 + exp(-z))
   - z = β0 + β1x1 + β2x2 + ... + βpxp where x is input and β are weights
+  - We set the parameter penalty='None'
+**Since we have 4 classes for human body level we used Multinomial logistic regression**
 
-- We set the parameter penalty='None'
-
-Since we have 4 classes for human body level we used Multinomial logistic regression
-
-- Adaboost
+### Adaboost
   - boosting → ensemble modeling technique that attempts to build a strong classifier for numbers of weak classifiers.
   - It is done by building a model by using weak models in series.
-  - AdaBoost → the first really successful boosting algorithm developed for the purpose of binary classification. AdaBoost is short for Adaptive Boosting and is a very popular boosting technique that combines multiple "weak classifiers" into a single "strong classifier"
+  - AdaBoost → the first really successful boosting algorithm developed for the purpose of binary classification. 
+  - AdaBoost is short for Adaptive Boosting and is a very popular boosting technique that combines multiple "weak classifiers" into a single "strong classifier"
   - Algorithm:
     1. Initialize the dataset and assign equal weight to each of the data points.
     2. Provide this as input to the model and identify the wrongly classified data points.
     3. Increase the weight of the wrongly classified data points.
-    4. if (got required results): Goto step 5
+    4. if (got required results): 
+        Goto step 5
+      else: 
+        Goto step 2
+    5. End
 
-else: Goto step 2
+![adaboost](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/0c434c35-7c2e-49c6-a616-b0abb9e9f1ce)
 
-5. End
-
-![](RackMultipart20230522-1-ejmitp_html_e75a441a22db0fe4.png)
-
-![](RackMultipart20230522-1-ejmitp_html_8cafd9fc4a99ef89.png)
+![adaboost2](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/cb099501-0ff3-4598-af34-e637c902c046)
 
 Adaboost Learning Curve:
 
-![](RackMultipart20230522-1-ejmitp_html_aa311e20b69d9a32.png)
+![adaboost_learning curve](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/3f929fe2-c75c-4ddb-9494-66667b91146a)
 
 Adaboost Validation Curve of n\_estimators:
 
-![](RackMultipart20230522-1-ejmitp_html_329a548241fade6c.png)
+![adaboostwithn_estimator](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/ca523a0d-ece0-492e-8b56-e61b4caed81c)
 
--
 ### XGBOOST
-
   - Extreme Gradient Boosting
-  - is a decision-tree-based ensemble Machine Learning algorithm that uses a [_gradient boosting_](https://en.wikipedia.org/wiki/Gradient_boosting) framework.
-  - prediction problems involving unstructured data (images, text, etc.) artificial neural networks tend to outperform all other algorithms or frameworks
-
-![](RackMultipart20230522-1-ejmitp_html_5833e4844bc86e25.png)
+  - is a decision-tree-based ensemble Machine Learning algorithm that uses a [_gradient  boosting_](https://en.wikipedia.org/wiki/Gradient_boosting) framework.
+  - prediction problems involving unstructured data (images, text, etc.) artificial neural networks tend to outperform all other algorithms or frameworks.
+ 
+![xgboost](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/223cfb6e-b2ad-4fdd-abdd-c2483f52d69b)
 
 - Algorithm
-  - [It is an ensemble learning method that combines the predictions of multiple weak models to produce a stronger prediction](https://www.springboard.com/blog/data-science/xgboost-explainer/).
+  - It is an ensemble learning method that combines the predictions of multiple weak models to produce a stronger prediction.
   - operates on decision trees, models that construct a graph that examines the input under various "if" statements.
-    - Whether the "if" condition is satisfied influences the next "if" condition and eventual prediction ![](RackMultipart20230522-1-ejmitp_html_c1590348853cb55.png)
+    - Whether the "if" condition is satisfied influences the next "if" condition and eventual prediction.
+    - 
+XGBoost Validation Curve with n\_estimators:
 
-XGBoost Validation Curve
-
-with n\_estimators:
+![xgboost curve](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/997aab14-f3b7-4ae5-91d1-eb2552fb54df)
 
 **Bias-Variance Analysis in Models** (results in next section)
 
@@ -237,9 +228,7 @@ Bias refers to the error introduced by using a model/hypothesis set that is too 
 
 Variance refers to the error that is introduced by the model's sensitivity to small fluctuations in the training data, it gets higher when the model is too complex for the problem that it's starting to fit the noise introduced in the sample data it sees (overfit)
 
-![](RackMultipart20230522-1-ejmitp_html_cba96800b020421b.png)
-
-##
+![variance](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/aa655159-3874-4634-8d4f-248cbad43d01)
 
 ## IV. Results and Evaluation
 
@@ -251,7 +240,6 @@ Variance refers to the error that is introduced by the model's sensitivity to sm
 | --- | --- | --- | --- | --- |
 | MultinomialNB | 68.09 | 69.09 | 67.33 | 69.09 |
 | Linear Regression | 86.05 | 84.08 | 84.60 | 84.08 |
-| --- | --- | --- | --- | --- |
 | LogisticRegression | 99.66 | 99.66 | 99.66 | 99.66 |
 | SVM | 99.92 | 99.92 | 99.92 | 99.92 |
 | SVM (RBF) | 85.43 | 83.66 | 82.91 | 83.66 |
@@ -265,11 +253,10 @@ Variance refers to the error that is introduced by the model's sensitivity to sm
 | --- | --- | --- | --- | --- | --- | --- |
 | MultinomialNB | 64.30 | 64.53 | 64.53 | 62.25 | 0.348 | 0.0513 |
 | Linear Regression | 84.67 | 82.09 | 82.09 | 82.64 | 0.463 | 0.033 |
-| --- | --- | --- | --- | --- | --- | --- |
 | LogisticRegression | 98.36 | 98.31 | 98.31 | 98.29 | 0.020 | 0.0159 |
 | SVM | 97.00 | 96.96 | 96.96 | 96.94 | 0.024 | 0.0188 |
 | SVM (RBF) | 85.74 | 82.43 | 82.43 | 82.08 | 0.169 | 0.0216 |
-| RandomForest | 99.33 | 99.32 | 99.32 | 99.32 | –– | –– |
+| RandomForest | 99.33 | 99.32 | 99.32 | 99.32 | – | – |
 | AdaBoost | 99.66 | 99.66 | 99.66 | 99.66 | 0.003 | 0.0697 |
 | CatBoost | 100 | 100 | 100 | 100 | — | — |
 | XGBoost | 100 | 100 | 100 | 100 | 0.000 | 0.0047 |
@@ -283,7 +270,6 @@ Variance refers to the error that is introduced by the model's sensitivity to sm
 | --- | --- | --- | --- | --- |
 | MultinomialNB | 67.59 | 67.91 | 67.28 | 67.91 |
 | Linear Regression | 83.53 | 80.74 | 81.34 | 80.74 |
-| --- | --- | --- | --- | --- |
 | LogisticRegression | 90.15 | 89.86 | 89.77 | 89.86 |
 | SVM | 98.00 | 97.97 | 97.98 | 97.97 |
 | SVM (RBF) | 76.68 | 74.66 | 74.27 | 74.66 |
@@ -304,7 +290,6 @@ Variance refers to the error that is introduced by the model's sensitivity to sm
 | SVM (RBF) | 76.68 | 74.66 | 74.27 | 74.66 |
 | AdaBoost | 63.16 | 64.53 | 61.83 | 64.53 |
 | CatBoost | 95.76 | 95.61 | 95.47 | 95.61 |
-| --- | --- | --- | --- | --- |
 | XGBoost | 97.36 | 97.30 | 97.27 | 97.30 |
 
 1. Preprocessing used: (No Aggregates, LabelOrdinalEncoding, SMOTE)
@@ -360,7 +345,7 @@ Variance refers to the error that is introduced by the model's sensitivity to sm
   - Contributed in Model's testing and parameter tuning
   - Bias Variance Analysis
 
-- Nour El-Din
+- Nour-AlDin
   - Contributed in Data Visualization and Analysis
   - Contributed in Model's testing and parameter tuning
   - Bias Variance Analysis
