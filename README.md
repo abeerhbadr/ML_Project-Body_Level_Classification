@@ -2,9 +2,7 @@
 
 # **Machine Learning Project**
 
-
 ## Contributors Names
-
 | **Name** |
 | --- |
 | Abeer Hussein |
@@ -12,13 +10,8 @@
 | Mohamed Akram |
 |Nour-Aldin Mustafa |
 
-
-## 2022/2023
-
 ## **I. Data Analysis**
-
 **Columns excluding label:** (blue for **Categorical** , red for **Numerical** )
-
 | Gender | H\_Cal\_Consump | Alchohol\_Consump | Food\_Between\_Meals |
 | --- | --- | --- | --- |
 | Fam\_Hist | H\_Cal\_Burn | Transport | Smoking |
@@ -47,39 +40,23 @@ We concatenated an augmented metric called BMI, it is stated by domain experts "
 
 ### 1. Correlation Matrix
 
-### ![](RackMultipart20230522-1-ejmitp_html_f3e27cc864b44ec.png)
-
+### ![]![correlation Matrix](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/e32fe1fc-c02c-487f-a4d8-218448771482)
 
 **Notable few:**
-
 ('BMI', 'Weight')
-
 0.93
-
 ('Body\_Level', 'BMI')
-
 0.90
-
 ('Body\_Level', 'Weight')
-
 0.84
-
 ('Transport', 'Age')
-
 0.58
-
 ('Body\_Level', 'Fam\_Hist')
-
 0.50
-
 ('Fam\_Hist', 'Weight')
-
 0.49
-
 ('Body\_Level', 'Age')
-
 0.33
-
 ### **2. Columns Values Histogram**
 
 ### ![](RackMultipart20230522-1-ejmitp_html_f4996274f9e67605.png)
