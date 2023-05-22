@@ -56,6 +56,7 @@ We concatenated an augmented metric called BMI, it is stated by domain experts "
 
 ### **3. Class Frequency (Prior)**
 | Body Level | Frequency |
+| --- | --- |
 | Body Level 4 | 680 |
 | Body Level 3 | 406 |
 | Body Level 2  | 201 |
@@ -118,16 +119,15 @@ We called this LabelOrdinalEncode
 
 We also tried One-Hot encoding of categorical features, which makes all values in the whole dataframe 0/1, for example: Alcohol\_Consump above becomes 4 columns. Alcohol\_Consump\_no, Alcohol\_Consump\_sometimes, Alcohol\_Consump\_Frequently, Alcohol\_Consump\_Always, and only one of them is 1 in each row depending on the value of the original row.
 
-1.
 ### Data Resampling
 
 - We have tried two methods for upsampling:
 
-1. sklearn's resample which does simple random sampling with replacement. This means all rows in the original dataset have equal probabilities of being chosen to fill minority class
+1. sklearn's resample which does simple random sampling with replacement. This means all rows in the original dataset have equal probabilities of being chosen to    fill minority class
 2. SMOTE, which looks for the nearest k neighbours for a sample, chooses one neighbour at random, then adds a value between the two samples' vectors
 
 - We found that not resampling yields higher accuracies.
-- 
+
 ### Aggregates
 
 From [Correlation Matrix](#_xpi09cb1zjhj), we find high correlation between Body\_Level and weight, while we find quite a low correlation between Body\_Level and Height. So we add aggregate columns that have meaning combining two features or more. The aggregate column we added is the Body Mass Index (BMI).
@@ -151,21 +151,19 @@ This addition of BMI column added a significant improvement to the accuracy.
 - For non-linearly separable data, SVM uses the kernel trick to transform the data into higher dimensionals where it becomes linearly separable
 - HyperParameter Tuning Results: {'C': 12, 'gamma': 0.01, 'kernel': 'rbf'}
 
-![0_9jEWNXTAao7phK-5](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/957a7978-74ad-4d92-8825-efc402743de0)
-
-![0_0o8xIA4k3gXUDCFU](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/04d62c28-b6a0-4dae-a687-d839aeded5f2)
-
-- SVM Learning Curve: used to determine the training set size
-![curve training](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/19c5737d-65df-4305-9150-e1d126e16f1e)
-
-- SVM Validation Curve of the "gamma" parameter:
-
-![svm validation](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/b0d36612-bdd1-46b2-a1c7-d98b0c845c81)
+| Image 1                                                      | Image 2                                                      |
+|--------------------------------------------------------------|--------------------------------------------------------------|
+| <img src="https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/957a7978-74ad-4d92-8825-efc402743de0" alt="Image 1" width="500" height="250"> | <img src="https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/04d62c28-b6a0-4dae-a687-d839aeded5f2" alt="Image 2" width="500" height="250"> |
 
 
-- SVM Validation Curve of the "C" parameter:
 
-![validation2](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/60ae3568-992a-4e6c-9ff5-be71e0fe3745)
+| Description                                          | Image                                                |
+|------------------------------------------------------|------------------------------------------------------|
+| SVM Learning Curve: used to determine the training set size | <img src="https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/19c5737d-65df-4305-9150-e1d126e16f1e" alt="curve training" style="width:500px;height:250px;"> |
+| SVM Validation Curve of the "gamma" parameter        | <img src="https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/b0d36612-bdd1-46b2-a1c7-d98b0c845c81" alt="svm validation" style="width:500px;height:250px;"> |
+| SVM Validation Curve of the "C" parameter            | <img src="https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/60ae3568-992a-4e6c-9ff5-be71e0fe3745" alt="validation2" style="width:500px;height:250px;"> |
+
+
 
 
 ### **Logistic Regression**
@@ -192,17 +190,17 @@ This addition of BMI column added a significant improvement to the accuracy.
         Goto step 2
     5. End
 
-![adaboost](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/0c434c35-7c2e-49c6-a616-b0abb9e9f1ce)
+| Image 1                                                                  | Image 2                                                                  |
+|--------------------------------------------------------------------------|--------------------------------------------------------------------------|
+| <img src="https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/0c434c35-7c2e-49c6-a616-b0abb9e9f1ce" alt="Image 1" style="width:500px;height:250px;"> | <img src="https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/cb099501-0ff3-4598-af34-e637c902c046" alt="Image 2" style="width:500px;height:250px;"> |
 
-![adaboost2](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/cb099501-0ff3-4598-af34-e637c902c046)
 
-Adaboost Learning Curve:
 
-![adaboost_learning curve](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/3f929fe2-c75c-4ddb-9494-66667b91146a)
+| Description                                                  | Image                                                                 |
+|--------------------------------------------------------------|-----------------------------------------------------------------------|
+| Adaboost Learning Curve                                       | <img src="https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/3f929fe2-c75c-4ddb-9494-66667b91146a" alt="adaboost_learning curve" style="width:500px;height:250px;"> |
+| Adaboost Validation Curve of n_estimators                    | <img src="https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/ca523a0d-ece0-492e-8b56-e61b4caed81c" alt="adaboostwithn_estimator" style="width:500px;height:250px;"> |
 
-Adaboost Validation Curve of n\_estimators:
-
-![adaboostwithn_estimator](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/ca523a0d-ece0-492e-8b56-e61b4caed81c)
 
 ### XGBOOST
   - Extreme Gradient Boosting
@@ -216,9 +214,10 @@ Adaboost Validation Curve of n\_estimators:
   - operates on decision trees, models that construct a graph that examines the input under various "if" statements.
     - Whether the "if" condition is satisfied influences the next "if" condition and eventual prediction.
     - 
-XGBoost Validation Curve with n\_estimators:
+| Description                                          | Image                                                                 |
+|------------------------------------------------------|-----------------------------------------------------------------------|
+| XGBoost Validation Curve with n_estimators           | <img src="https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/997aab14-f3b7-4ae5-91d1-eb2552fb54df" alt="xgboost curve" style="width:500px;height:250px;"> |
 
-![xgboost curve](https://github.com/abeerhbadr/ML_Project-Body_Level_Classification/assets/56984371/997aab14-f3b7-4ae5-91d1-eb2552fb54df)
 
 **Bias-Variance Analysis in Models** (results in next section)
 
